@@ -11,7 +11,7 @@ $widgets = [
 /***** FUNCTIONS *****/
 
 function dpGetTagList() {
-	$return ="<h4>Categories</h4>";
+	$return="";
 	 $query  = "SELECT * FROM tags order by menuorder asc";
 	  $result = mysql_query($query);
 
@@ -24,10 +24,10 @@ function dpGetTagList() {
 
 
 function dpGetTagCloud() {
-	return "TagCloud";
+	return "TODO:TagCloud";
 }
 
 function dpGetSearchWidget() {
-	
+	return "TODO:Search FORM";
 }
 ?>

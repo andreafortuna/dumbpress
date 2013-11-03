@@ -213,17 +213,17 @@ function dpSidebar() {
 
   while($row = mysql_fetch_array($result, MYSQL_ASSOC))
   {
-  if (array_key_exists($row['content'], $widgets)) { 
-  	echo $widgets[$row['content']];
-  } else {
   ?>
   <div class="widget">
   	<h4><?php echo $row['title']; ?></h3>
-  	<?php echo $row['content']; ?>
-  </div>
-  
-  <?php
+  <?php if (array_key_exists($row['content'], $widgets)) { 
+  		echo $widgets[$row['content']];
+  	} else {	
+		echo $row['content'];
 	}
+	?>
+	</div>
+	<?php
   } 
 }
 
