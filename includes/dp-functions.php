@@ -30,12 +30,28 @@ function getTheme(){
 /*
 * PERMALINK MANAGER
 */
+
+function shrinkTitleSE($title) {
+  $title = preg_replace('/[^a-zA-Z0-9\-]/', ' ',  strtolower($title));
+  $title = preg_replace('/\s+/', '-', $title); 
+  $title = str_replace("---","-",$title);
+  $title = trim($title,"-");
+  
+  return $title;
+}
+
+
 function createPermalink($pagename) {
   $baseurl = getOption("sitelink");
   return $baseurl."/".$pagename;
 }
 
 /*
-* TODO: make function for article's permalinks creation
+* Article permalink
 */
+function createArticlePermalink($articleID,$title) {
+  return createPermalink("articles/".$articleID."/".shrinkTitleSE($title).".html");
+}
+
+
 ?>

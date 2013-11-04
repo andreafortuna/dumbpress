@@ -111,19 +111,19 @@ function dpHeader() { ?>
 	        <meta name="description" content="">
 	        <meta name="viewport" content="width=device-width">
 
-	        <link rel="stylesheet" href="css/bootstrap.min.css">
+	        <link rel="stylesheet" href="<?php echo getOption("sitelink"); ?>/css/bootstrap.min.css">
 	        <style>
 	            body {
 	                padding-top: 50px;
 	                padding-bottom: 20px;
 	            }
 	        </style>
-	        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-	        <link rel="stylesheet" href="css/colorbox.css" />			
+	        <link rel="stylesheet" href="<?php echo getOption("sitelink"); ?>/css/bootstrap-theme.min.css">
+	        <link rel="stylesheet" href="<?php echo getOption("sitelink"); ?>/css/colorbox.css" />			
 			
-	        <link rel="stylesheet" href="themes/<?php echo getTheme() ?>/main.css">
+	        <link rel="stylesheet" href="<?php echo getOption("sitelink"); ?>/themes/<?php echo getTheme() ?>/main.css">
 
-	        <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+	        <script src="<?php echo getOption("sitelink"); ?>/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 
 		
 
@@ -188,7 +188,7 @@ function dpBlogroll() {
   ?>
   <article>
     <header>
-      <h1><a href="<?php echo createPermalink("?articleID=".$row['id']); ?>"><?php echo $row['title']; ?></a></h1>
+      <h1><a href="<?php echo createArticlePermalink($row['id'],$row['title']); ?>"><?php echo $row['title']; ?></a></h1>
       <time pubdate datetime="2011-10-09T14:28-08:00"><?php echo $row['pubdate']; ?></time></p>  
     </header>
     <p><?php echo $row['excerpt']; ?></p>
@@ -241,7 +241,7 @@ $query  = "SELECT * FROM articles where pubdate < now() and state=1 and gallery=
   ?>
 
 	<div class="col-lg-4">
-  		<h2><div class="boxLogo">A</div><a href="?articleID=<?php echo $row['id']; ?>"><?php echo $row['title']; ?></a></h2>
+  		<h2><div class="boxLogo">A</div><a href="<?php echo createArticlePermalink($row['id'],$row['title']); ?>"><?php echo $row['title']; ?></a></h2>
   		<p><img src="<?php echo $row['cover_image_1']; ?>" class="imgsx"><?php echo $row['excerpt']; ?></p>          
 	</div>
 
@@ -266,11 +266,11 @@ global $dpVersion;
 
     
 
-    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
-<script src="js/vendor/jquery.colorbox.js"></script>
-        <script src="js/vendor/bootstrap.min.js"></script>
+    <script>window.jQuery || document.write('<script src="<?php echo getOption("sitelink"); ?>/js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
+<script src="<?php echo getOption("sitelink"); ?>/js/vendor/jquery.colorbox.js"></script>
+        <script src="<?php echo getOption("sitelink"); ?>/js/vendor/bootstrap.min.js"></script>
 
-        <script src="js/main.js"></script>
+        <script src="<?php echo getOption("sitelink"); ?>/js/main.js"></script>
 
         <script>
             var _gaq=[['_setAccount','<?php echo getOption("ganalyticsID")?>'],['_trackPageview']];

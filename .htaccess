@@ -1,0 +1,5 @@
+RewriteEngine On
+
+RewriteRule ^feed/ dp-feed.php
+RewriteRule ^articles/([^"\r\n]*)/([^"\r\n]*)\.html$ ?articleID=$1
+RewriteRule ^arguments/([^"\r\n]*)/([^"\r\n]*)\.html$ ?tagName=$1
