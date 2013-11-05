@@ -63,7 +63,7 @@ Examples:
 
 ATTENTION: The trailing slash is required.
 */
-$baseUrl = '/dapensionelucrezia.it/uploads/';
+$baseUrl = getOption("sitelink").'/uploads/';
 //$baseUrl = '../uploads/';
 
 /*

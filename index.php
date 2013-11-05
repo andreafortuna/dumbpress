@@ -3,7 +3,7 @@ require("includes/dumbpress.php");
 ?>
 <?php dpHeader(); 
 if (!isset($_GET["articleID"])) {?>
-      <h1>Le ultime ricette...</h1>
+      <h1><?php echo getOption("galleryTitle");?></h1>
       <hr>
       <div class="row">
        <?php dpGallery(); ?>
@@ -17,7 +17,7 @@ if (!isset($_GET["articleID"])) {?>
         if (isset($_GET["articleID"])) {
           dpGetArticle($_GET["articleID"]);
         } else { ?>
-          <h1>Blogroll</h1>
+          <h1><?php echo getOption("blogrollTitle");?></h1>
           <hr>
         <?php  dpBlogroll(); 
         }

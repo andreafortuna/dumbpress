@@ -36,6 +36,28 @@ foreach($directories as $directory){
 <br/>
 
 
+
+<?php
+	if (isset($_POST["galleryTitle"])) {
+		setOption("galleryTitle", $_POST["galleryTitle"]);
+		setOption("blogrollTitle", $_POST["blogrollTitle"]);		
+		echo "<h4>Saved!</h4>";
+	}
+	
+?>
+
+<fieldset>
+<legend>Home page customizations</legend>
+<form method="post" action="?action=themes">
+	<label for="galleryTitle">Gallery Title </label>
+	<input type="text" name="galleryTitle" value="<?php echo getOption("galleryTitle"); ?>"><br>
+	<label for="blogrollTitle">BlogRoll Title </label>
+	<input type="text" name="blogrollTitle" value="<?php echo getOption("blogrollTitle"); ?>"><br>
+	<input type="submit" value="Save">
+</form>
+</fieldset>
+<br/>
+
 <?php
 	if (isset($_POST["preArticle"])) {
 		setOption("preArticle", $_POST["preArticle"]);
