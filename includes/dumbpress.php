@@ -131,7 +131,7 @@ function dpHeader() {
 	        </style>
 	        <link rel="stylesheet" href="<?php echo getOption("sitelink"); ?>/css/bootstrap-theme.min.css">
 	        <link rel="stylesheet" href="<?php echo getOption("sitelink"); ?>/css/colorbox.css" />			
-			
+			<link rel="stylesheet" href="<?php echo getOption("sitelink"); ?>/css/main.css">
 	        <link rel="stylesheet" href="<?php echo getOption("sitelink"); ?>/themes/<?php echo getTheme() ?>/main.css">
 
 	        <script src="<?php echo getOption("sitelink"); ?>/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>

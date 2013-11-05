@@ -71,4 +71,22 @@ function createArticlePermalink($articleID,$title) {
 }
 
 
+/* CACHING */
+
+function loadCache($id) {
+  $cachefile = "caches/$id.tmp";
+  $cachetime = 5 * 60;
+//$cachetime = 0;
+  if (file_exists($cachefile) && time() - $cachetime < filemtime($cachefile)) {
+      return file_get_contents($cachefile);
+  }
+  return "";
+}
+
+function saveCache($id,$content) {
+  $cachefile = "caches/$id.tmp";
+  @file_put_contents($cachefile, $content);
+}
+
+
 ?>

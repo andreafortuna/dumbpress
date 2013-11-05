@@ -1,0 +1,58 @@
+.widget {
+    width: 320px;
+    height: 300px;
+    margin:5px;
+    /*border:1px solid #ccc;  
+    box-shadow: 3px 3px 4px #888;
+    border-radius:5px;*/
+    padding:3px;
+}
+
+
+
+.widget h1,h2,h3,h4 {
+    border-bottom:1px solid #eee;
+    line-height: 1.3em;
+}
+
+/*** INSTAGRAM WIDGET ***/
+
+#cycler{}
+#cycler img{}
+#cycler img.active{z-index:3}
+
+.instagramWidget {
+    width:320px;
+    height:300px;
+    position:relative;
+    margin-bottom: 10px;
+}
+.instagramWidget img {
+    max-height:260px;
+    position:absolute;
+    margin-left:25px; 
+    left:0; 
+    top:0; 
+}
+
+/* TABLET */
+
+@media (max-width: 900px) {
+    
+    .jumbotron h1 {
+        letter-spacing:-6px;
+    }
+
+    article footer {
+        float:none;
+    }
+
+    .widget {
+        float:left;
+    }
+
+    #maincontent {
+        width:100%;
+    }
+
+}
