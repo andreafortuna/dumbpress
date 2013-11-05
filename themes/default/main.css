@@ -1,13 +1,29 @@
 
 
 /* ==========================================================================
-   Author's custom styles
+   DumbPress Default Theme - By Andrea Fortuna (http://andreafortuna.org)
    ========================================================================== */
 
-.row img {
+
+.imgsx {
     max-width:150px;
     float:left;
-    margin:5px;
+    margin:10px;
+    padding:1px;
+    border:1px solid #888;
+    background-color:#ccc;  
+    box-shadow: 3px 3px 4px #888;
+    border-radius:5px;
+}
+
+.postGallery {
+    /*border:1px solid #000;*/
+    text-align: center;
+}
+
+.postGalleryImg {
+    width:220px;
+    margin:10px;
     padding:1px;
     border:1px solid #888;
     background-color:#ccc;  

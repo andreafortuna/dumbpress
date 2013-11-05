@@ -15,6 +15,8 @@ function getOption($option) {
   return $returnvalue;
 }
 function setOption($option, $value) {
+  $option = str_replace("'", "''", $option);
+  $value = str_replace("'", "''", $value);
   mysql_query("delete from options where optionName ='$option'");
   mysql_query("insert into options(optionname,optionValue) values ('$option','$value')");
 }

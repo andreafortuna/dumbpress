@@ -165,7 +165,7 @@ function dpHeader() { ?>
 	    </div>
 	    <div class="jumbotron">
 	      <div class="container">
-	        <h1><?php echo getOption("sitetitle"); ?> <span class="logo">t</span></h1>
+	        <h1><?php echo getOption("sitetitle"); ?> <!-- <span class="logo">t</span> --></h1>
 	        <p><?php echo getOption("headline"); ?></p>
 	        
 	      </div>
@@ -241,7 +241,7 @@ $query  = "SELECT * FROM articles where pubdate < now() and state=1 and gallery=
   ?>
 
 	<div class="col-lg-4">
-  		<h2><div class="boxLogo">A</div><a href="<?php echo createArticlePermalink($row['id'],$row['title']); ?>"><?php echo $row['title']; ?></a></h2>
+  		<h2><a href="<?php echo createArticlePermalink($row['id'],$row['title']); ?>"><?php echo $row['title']; ?></a></h2>
   		<p><img src="<?php echo $row['cover_image_1']; ?>" class="imgsx"><?php echo $row['excerpt']; ?></p>          
 	</div>
 
