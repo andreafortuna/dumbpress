@@ -182,7 +182,7 @@ function dpHeader() {
 	      </div>
 	    </div>
 	  <div class="container">
-<?php 
+ <?php 
 }
 
 /*
@@ -190,19 +190,18 @@ function dpHeader() {
 */
 
 function dpBlogroll($page=0, $tagid=0) { ?>
-   <h1><?php 
-   $tagslug="";
-   //If tag archive, set TagName in title
-   if ($tagid!=0) {
-   		$result = mysql_query("select * from tags where id=".$tagid);
-   		$row = mysql_fetch_array($result, MYSQL_ASSOC);
-   		echo $row["tagname"];
-   		$tagslug = $row["tagslug"];
-   } else {
-   		echo getOption("blogrollTitle");
-   }
-   
-
+   <h1>
+   <?php 
+	   $tagslug="";
+	   //If tag archive, set TagName in title
+	   if ($tagid!=0) {
+	   		$result = mysql_query("select * from tags where id=".$tagid);
+	   		$row = mysql_fetch_array($result, MYSQL_ASSOC);
+	   		echo $row["tagname"];
+	   		$tagslug = $row["tagslug"];
+	   } else {
+	   		echo getOption("blogrollTitle");
+	   }
    ?></h1>
    <hr>
 	<?php
@@ -210,17 +209,18 @@ function dpBlogroll($page=0, $tagid=0) { ?>
 	if ($pagesize=="") $pagesize=5;
 	if ($page =="") $page="0";
 
-  $query  = "SELECT * FROM articles ";
-  if ($tagid!=0) $query .=" inner join articles_tags on articles_tags.articleID = articles.id ";
-  $query .=" where pubdate < now() ";
-  if ($tagid != 0) $query .=" and articles_tags.tagID=".$tagid;
-  $query .=" and state=1 ";
-  if ($tagid==0) $query .=" and gallery=0 ";
-  $query .=" order by pubdate desc limit ".($page * $pagesize).",".$pagesize;
+	//CREATE QUERY
+	$query  = "SELECT * FROM articles ";
+	if ($tagid!=0) $query .=" inner join articles_tags on articles_tags.articleID = articles.id ";
+	$query .=" where pubdate < now() ";
+	if ($tagid != 0) $query .=" and articles_tags.tagID=".$tagid;
+	$query .=" and state=1 ";
+	if ($tagid==0) $query .=" and gallery=0 ";
+	$query .=" order by pubdate desc limit ".($page * $pagesize).",".$pagesize;
  
 	//echo $query;
 
-  $result = mysql_query($query);
+  	$result = mysql_query($query);
 
   while($row = mysql_fetch_array($result, MYSQL_ASSOC))
   {
@@ -246,8 +246,10 @@ function dpBlogroll($page=0, $tagid=0) { ?>
  	  <?php if ($page>0) { ?><div style="float:left;"><a href="<?php echo getOption("sitelink")."/page/".$page; ?>">Previous</a></div> <?php } ?>
 	  <div style="float:right;"><a href="<?php echo getOption("sitelink")."/page/".($page + 2); ?>">Next</a></div>
 
-  <?php } ?> 
-<?php }
+  <?php } ?>
+
+ <?php 
+}
 
 
 /*
@@ -279,7 +281,13 @@ function dpSidebar() {
 * DumbPress Gallery
 */
 
-function dpGallery() { 
+function dpGallery() { ?>
+	 
+	<h1><?php echo getOption("galleryTitle");?></h1>
+      <hr>
+      <div class="row">
+	
+    <?php
 	$query  = "SELECT * FROM articles where pubdate < now() and state=1 and gallery=1 order by pubdate desc limit 3";
 	  $result = mysql_query($query);
 
@@ -294,7 +302,10 @@ function dpGallery() {
 
 	  
 	  <?php
-	  } 
+	  } ?>
+	  </div>
+	  <br/>
+ <?php
 }
 
 /*
