@@ -1,6 +1,6 @@
 <?php 
-require_once("../includes/dp-security.php");
 require_once("../includes/dumbpress.php");
+require_once("../includes/dp-security.php");
 if (!checkUser() && basename($_SERVER["PHP_SELF"]) != "dp-login.php") {
     
     header("location:dp-login.php");

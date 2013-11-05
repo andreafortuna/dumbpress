@@ -1,24 +1,39 @@
 <?php
 /************ UTILITY *************/
-function getOption($option) {
-  //TODO: caching system
-  //DB Caching - TBD
-  $returnvalue="";
-  $query  = "SELECT * FROM options where optionName='".$option."'";
-  
-  $result = mysql_query($query);
 
+function cacheOptions() {
+  $options = array();
+  $query  = "SELECT * FROM options";
+  $result = mysql_query($query);
   while($row = mysql_fetch_array($result, MYSQL_ASSOC))
   {
-  	$returnvalue=$row['optionValue'];
+    $options[] = array($row["optionName"],$row["optionValue"]);
   }
-  return $returnvalue;
+  $_SESSION["options"] = $options;
 }
+
+
+function getOption($option) {
+  if (!isset($_SESSION["options"])) cacheOptions();
+  //cacheOptions();
+  $array = $_SESSION["options"];
+
+   foreach ($array as $key) {       
+       if ($key[0] === $option) {
+           return $key[1];
+       }
+   }
+   return null;
+}
+
+
+
 function setOption($option, $value) {
   $option = str_replace("'", "''", $option);
   $value = str_replace("'", "''", $value);
   mysql_query("delete from options where optionName ='$option'");
   mysql_query("insert into options(optionname,optionValue) values ('$option','$value')");
+  cacheOptions();
 }
 
 function getTheme(){

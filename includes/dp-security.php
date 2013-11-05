@@ -1,6 +1,4 @@
 <?php
-session_start();
-
 require_once("dp-config.php");
 /*
 * DumbPress security functions

@@ -1,4 +1,5 @@
 <?php 
+require_once("../includes/dumbpress.php");
 require_once("../includes/dp-security.php");
 if (isset($_POST["login"])) {
 

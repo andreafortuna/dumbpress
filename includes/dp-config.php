@@ -19,5 +19,9 @@ $dbpassword = "";
 $adminusername = "admin";
 $adminpassword = "password";
 
+/*******************
+* ADVANCED SETTINGS 
+*******************/
+$enableDebug = "1";
 
 ?>

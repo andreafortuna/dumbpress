@@ -4,6 +4,7 @@
 * DUMBPRESS, a simple, high-configurable, lightweight blogging platform by Andrea Fortuna
 *
 */
+session_start();
 require_once("dp-config.php");
 require_once("dp-sidebar.php");
 require_once("dp-functions.php");
@@ -98,7 +99,17 @@ function dpUpdateArticle($articleID,$title,$content,$pubdate,$excerpt,$gallery,$
 * DumbPress Header
 */
 
-function dpHeader() { ?>
+function dpHeader() {
+	global $enableDebug; 
+	//DEBUG**/
+	if ($enableDebug=="1") {
+		$res = mysql_query("SHOW SESSION STATUS LIKE 'Questions'");
+		$row = mysql_fetch_array($res, MYSQL_ASSOC);
+		define("START_QUERIES",$row['Value']);
+		define("START_TIME",microtime(true));
+	}
+	/*******/
+	?>
 	<!DOCTYPE html>
 	<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 	<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -255,7 +266,8 @@ $query  = "SELECT * FROM articles where pubdate < now() and state=1 and gallery=
 */
 
 function dpFooter() { 
-global $dpVersion;
+global $dpVersion,$enableDebug;
+
 ?>
 <hr>
     <footer>
@@ -281,9 +293,16 @@ global $dpVersion;
     </body>
 </html>
 
-<?php }
-
-
-
+<?php 
+/*** DEBUG ****/
+if ($enableDebug=="1") {
+	$res = mysql_query("SHOW SESSION STATUS LIKE 'Questions'");
+	$row = mysql_fetch_array($res, MYSQL_ASSOC);
+	define("STOP_QUERIES",$row['Value']);
+	define("STOP_TIME",microtime(true));
+	echo "<!-- No of queries: ".(STOP_QUERIES-START_QUERIES-1)." - Page generate in ".round((STOP_TIME - START_TIME)*1000)." ms-->";	
+}
+/**************/
+}
 
 ?>
