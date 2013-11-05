@@ -1,5 +1,8 @@
 RewriteEngine On
 
+RewriteRule ^page/([^"\r\n]*) ?page=$1
 RewriteRule ^feed/ dp-feed.php
 RewriteRule ^articles/([^"\r\n]*)/([^"\r\n]*)\.html$ ?articleID=$1
-RewriteRule ^arguments/([^"\r\n]*)/([^"\r\n]*)\.html$ ?tagName=$1
+
+RewriteRule ^arguments/([^"\r\n]*)/([^"\r\n]*)/page/([^"\r\n]*) ?tagID=$1&page=$3
+RewriteRule ^arguments/([^"\r\n]*)/([^"\r\n]*)/ ?tagID=$1

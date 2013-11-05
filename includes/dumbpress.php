@@ -164,9 +164,9 @@ function dpHeader() {
 
 	  while($row = mysql_fetch_array($result, MYSQL_ASSOC))
 	  {
-	  ?>
-	  <li><a href="<?php echo createPermalink($row['tagslug']); ?>/"><?php echo $row['tagname']; ?></a></li>	  
-	  <?php
+	  
+	   echo "<li><a href='".getOption("sitelink")."/arguments/".$row['id']."/".$row['tagslug']."/'>".$row['tagname']."</a></li>";  
+	
 	  } 
 	  ?>
 
@@ -189,9 +189,37 @@ function dpHeader() {
 * DumbPress BlogRoll
 */
 
-function dpBlogroll() {
+function dpBlogroll($page=0, $tagid=0) { ?>
+   <h1><?php 
+   $tagslug="";
+   //If tag archive, set TagName in title
+   if ($tagid!=0) {
+   		$result = mysql_query("select * from tags where id=".$tagid);
+   		$row = mysql_fetch_array($result, MYSQL_ASSOC);
+   		echo $row["tagname"];
+   		$tagslug = $row["tagslug"];
+   } else {
+   		echo getOption("blogrollTitle");
+   }
+   
 
-  $query  = "SELECT * FROM articles where pubdate < now() and state=1 and gallery=0 order by pubdate desc";
+   ?></h1>
+   <hr>
+	<?php
+	$pagesize = getOption("pagesize");
+	if ($pagesize=="") $pagesize=5;
+	if ($page =="") $page="0";
+
+  $query  = "SELECT * FROM articles ";
+  if ($tagid!=0) $query .=" inner join articles_tags on articles_tags.articleID = articles.id ";
+  $query .=" where pubdate < now() ";
+  if ($tagid != 0) $query .=" and articles_tags.tagID=".$tagid;
+  $query .=" and state=1 ";
+  if ($tagid==0) $query .=" and gallery=0 ";
+  $query .=" order by pubdate desc limit ".($page * $pagesize).",".$pagesize;
+ 
+	//echo $query;
+
   $result = mysql_query($query);
 
   while($row = mysql_fetch_array($result, MYSQL_ASSOC))
@@ -206,11 +234,20 @@ function dpBlogroll() {
     <footer>
       <p>TAG1,TAG2,TAG3</p>
     </footer>
-  </article>
-  
-  <?php
-  } 
-}
+  </article>  
+  <?php }
+
+
+  //NAVIGATION
+  if ($tagid != 0) {?>
+	  <?php if ($page>0) { ?><div style="float:left;"><a href="<?php echo getOption("sitelink")."/arguments/".$tagid."/".$tagslug."/page/".$page; ?>">Previous</a></div> <?php } ?>
+	  <div style="float:right;"><a href="<?php echo getOption("sitelink")."/arguments/".$tagid."/".$tagslug."/page/".($page + 2); ?>">Next</a></div>
+  <?php } else { ?>
+ 	  <?php if ($page>0) { ?><div style="float:left;"><a href="<?php echo getOption("sitelink")."/page/".$page; ?>">Previous</a></div> <?php } ?>
+	  <div style="float:right;"><a href="<?php echo getOption("sitelink")."/page/".($page + 2); ?>">Next</a></div>
+
+  <?php } ?> 
+<?php }
 
 
 /*
@@ -243,22 +280,21 @@ function dpSidebar() {
 */
 
 function dpGallery() { 
+	$query  = "SELECT * FROM articles where pubdate < now() and state=1 and gallery=1 order by pubdate desc limit 3";
+	  $result = mysql_query($query);
 
-$query  = "SELECT * FROM articles where pubdate < now() and state=1 and gallery=1 order by pubdate desc limit 3";
-  $result = mysql_query($query);
+	  while($row = mysql_fetch_array($result, MYSQL_ASSOC))
+	  {
+	  ?>
 
-  while($row = mysql_fetch_array($result, MYSQL_ASSOC))
-  {
-  ?>
+		<div class="col-lg-4">
+	  		<h2><a href="<?php echo createArticlePermalink($row['id'],$row['title']); ?>"><?php echo $row['title']; ?></a></h2>
+	  		<p><img src="<?php echo $row['cover_image_1']; ?>" class="imgsx"><?php echo $row['excerpt']; ?></p>          
+		</div>
 
-	<div class="col-lg-4">
-  		<h2><a href="<?php echo createArticlePermalink($row['id'],$row['title']); ?>"><?php echo $row['title']; ?></a></h2>
-  		<p><img src="<?php echo $row['cover_image_1']; ?>" class="imgsx"><?php echo $row['excerpt']; ?></p>          
-	</div>
-
-  
-  <?php
-  } 
+	  
+	  <?php
+	  } 
 }
 
 /*
@@ -266,43 +302,43 @@ $query  = "SELECT * FROM articles where pubdate < now() and state=1 and gallery=
 */
 
 function dpFooter() { 
-global $dpVersion,$enableDebug;
+	global $dpVersion,$enableDebug;
 
-?>
-<hr>
-    <footer>
-      <span style="float:left;">&copy; <?php echo getOption("sitetitle");?> 2013</span>
-      <span style="float:right;">Powered by <a href="http://dumbpress.andreafortuna.org">DumbPress</a> - v. <?php echo $dpVersion; ?></span>
-    </footer>
-</div> <!-- /container -->        
+	?>
+	<hr>
+	    <footer>
+	      <span style="float:left;">&copy; <?php echo getOption("sitetitle");?> 2013</span>
+	      <span style="float:right;">Powered by <a href="http://dumbpress.andreafortuna.org">DumbPress</a> - v. <?php echo $dpVersion; ?> - <a href="<?php echo getOption("sitelink");?>/dpadmin/">Admin</a></span>
+	    </footer>
+	</div> <!-- /container -->        
 
-    
+	    
 
-    <script>window.jQuery || document.write('<script src="<?php echo getOption("sitelink"); ?>/js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
-<script src="<?php echo getOption("sitelink"); ?>/js/vendor/jquery.colorbox.js"></script>
-        <script src="<?php echo getOption("sitelink"); ?>/js/vendor/bootstrap.min.js"></script>
+	    <script>window.jQuery || document.write('<script src="<?php echo getOption("sitelink"); ?>/js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
+	<script src="<?php echo getOption("sitelink"); ?>/js/vendor/jquery.colorbox.js"></script>
+	        <script src="<?php echo getOption("sitelink"); ?>/js/vendor/bootstrap.min.js"></script>
 
-        <script src="<?php echo getOption("sitelink"); ?>/js/main.js"></script>
+	        <script src="<?php echo getOption("sitelink"); ?>/js/main.js"></script>
 
-        <script>
-            var _gaq=[['_setAccount','<?php echo getOption("ganalyticsID")?>'],['_trackPageview']];
-            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-            g.src='http://www.google-analytics.com/ga.js';
-            s.parentNode.insertBefore(g,s)}(document,'script'));
-        </script>
-    </body>
-</html>
+	        <script>
+	            var _gaq=[['_setAccount','<?php echo getOption("ganalyticsID")?>'],['_trackPageview']];
+	            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+	            g.src='http://www.google-analytics.com/ga.js';
+	            s.parentNode.insertBefore(g,s)}(document,'script'));
+	        </script>
+	    </body>
+	</html>
 
-<?php 
-/*** DEBUG ****/
-if ($enableDebug=="1") {
-	$res = mysql_query("SHOW SESSION STATUS LIKE 'Questions'");
-	$row = mysql_fetch_array($res, MYSQL_ASSOC);
-	define("STOP_QUERIES",$row['Value']);
-	define("STOP_TIME",microtime(true));
-	echo "<!-- No of queries: ".(STOP_QUERIES-START_QUERIES-1)." - Page generate in ".round((STOP_TIME - START_TIME)*1000)." ms-->";	
-}
-/**************/
+	<?php 
+	/*** DEBUG ****/
+	if ($enableDebug=="1") {
+		$res = mysql_query("SHOW SESSION STATUS LIKE 'Questions'");
+		$row = mysql_fetch_array($res, MYSQL_ASSOC);
+		define("STOP_QUERIES",$row['Value']);
+		define("STOP_TIME",microtime(true));
+		echo "<!-- No of queries: ".(STOP_QUERIES-START_QUERIES-1)." - Page generate in ".round((STOP_TIME - START_TIME)*1000)." ms-->";	
+	}
+	/**************/
 }
 
 ?>

@@ -2,7 +2,7 @@
 require("includes/dumbpress.php"); 
 ?>
 <?php dpHeader(); 
-if (!isset($_GET["articleID"])) {?>
+if (!isset($_GET["articleID"]) && !isset($_GET["tagID"])) {?>
       <h1><?php echo getOption("galleryTitle");?></h1>
       <hr>
       <div class="row">
@@ -17,9 +17,8 @@ if (!isset($_GET["articleID"])) {?>
         if (isset($_GET["articleID"])) {
           dpGetArticle($_GET["articleID"]);
         } else { ?>
-          <h1><?php echo getOption("blogrollTitle");?></h1>
-          <hr>
-        <?php  dpBlogroll(); 
+
+        <?php  dpBlogroll((isset($_GET["page"])?$_GET["page"]-1:""),(isset($_GET["tagID"])?$_GET["tagID"]:"")); 
         }
       ?>
   </div>

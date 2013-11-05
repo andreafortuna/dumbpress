@@ -1,5 +1,7 @@
 <?php 
 require_once("dbconn.php");
+require_once("dumbpress.php");
+require_once("dp-functions.php");
 /***** CONSTANTS ********/
 
 $widgets = [
@@ -17,7 +19,7 @@ function dpGetTagList() {
 
 	  while($row = mysql_fetch_array($result, MYSQL_ASSOC))
 	  { 
-	  	$return .= "<li><a href='".$row['tagslug']."/'>".$row['tagname']."</a></li>";
+	  	$return .= "<li><a href='".getOption("sitelink")."/arguments/".$row['id']."/".$row['tagslug']."/'>".$row['tagname']."</a></li>";
 	  } 
 	  return $return;
 }

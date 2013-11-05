@@ -77,9 +77,7 @@ require_once("../includes/dumbpress.php");
 	</textarea>
 	<br/>
 	<label for="excerpt">Excerpt</label>
-	<textarea cols="50" id="excerpt" name="excerpt" rows="2">
-	<?php echo $excerpt; ?>
-	</textarea>
+	<textarea cols="50" id="excerpt" name="excerpt" rows="2"><?php echo $excerpt; ?></textarea>
 	<br/><br/>
 	<label for="pubdate">PubDate</label>
 	<input type="date" name="pubdate" value="<?php echo $pubdate; ?>">
@@ -184,8 +182,7 @@ require_once("../includes/dumbpress.php");
 	</textarea>
 	<br/>
 	<label for="excerpt">Excerpt</label>
-	<textarea cols="50" id="excerpt" name="excerpt" rows="2">
-	</textarea>
+	<textarea cols="50" id="excerpt" name="excerpt" rows="2"></textarea>
 	<br/><br/>
 	<label for="pubdate">PubDate</label>
 	<input type="date" name="pubdate" value="<?php echo date('Y-m-d'); ?>">
