@@ -121,7 +121,7 @@ function dpHeader() {
 	        <title></title>
 	        <meta name="description" content="">
 	        <meta name="viewport" content="width=device-width">
-
+			<link rel="alternate" type="application/rss+xml" title="RSS" href="<?php echo getOption("sitelink"); ?>/feed/" />
 	        <link rel="stylesheet" href="<?php echo getOption("sitelink"); ?>/css/bootstrap.min.css">
 	        <style>
 	            body {
@@ -267,7 +267,7 @@ function dpSidebar() {
   <div class="widget">
   	<h4><?php echo $row['title']; ?></h3>
   <?php if (array_key_exists($row['content'], $widgets)) { 
-  		echo $widgets[$row['content']];
+  		echo call_user_func($widgets[$row['content']]);
   	} else {	
 		echo $row['content'];
 	}

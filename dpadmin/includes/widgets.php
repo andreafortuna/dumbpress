@@ -48,6 +48,7 @@
 <li>[tagcloud] : Tag Cloud</li>
 <li>[facebook] : Facebook Like Page</li>
 <li>[instagram] : Instagram Widget</li>
+<li>[twitter] : Twitter Widget</li>
 <li>[search] : Search widget</li>
 </ul>
 </p>

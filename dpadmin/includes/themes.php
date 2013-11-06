@@ -40,7 +40,8 @@ foreach($directories as $directory){
 <?php
 	if (isset($_POST["galleryTitle"])) {
 		setOption("galleryTitle", $_POST["galleryTitle"]);
-		setOption("blogrollTitle", $_POST["blogrollTitle"]);		
+		setOption("blogrollTitle", $_POST["blogrollTitle"]);	
+		setOption("pagesize", $_POST["pagesize"]);		
 		echo "<h4>Saved!</h4>";
 	}
 	
@@ -53,6 +54,8 @@ foreach($directories as $directory){
 	<input type="text" name="galleryTitle" value="<?php echo getOption("galleryTitle"); ?>"><br>
 	<label for="blogrollTitle">BlogRoll Title </label>
 	<input type="text" name="blogrollTitle" value="<?php echo getOption("blogrollTitle"); ?>"><br>
+	<label for="pagesize">Page Size </label>
+	<input type="text" name="pagesize" value="<?php echo getOption("pagesize"); ?>"><br>
 	<input type="submit" value="Save">
 </form>
 </fieldset>
@@ -61,7 +64,7 @@ foreach($directories as $directory){
 <?php
 	if (isset($_POST["preArticle"])) {
 		setOption("preArticle", $_POST["preArticle"]);
-		setOption("postArticle", $_POST["postArticle"]);		
+		setOption("postArticle", $_POST["postArticle"]);	
 		echo "<h4>Saved!</h4>";
 	}
 	
