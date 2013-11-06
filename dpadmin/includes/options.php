@@ -1,6 +1,6 @@
-
 <?php
 require_once("../includes/dumbpress.php"); 
+//ICONS: http://marcoceppi.github.io/bootstrap-glyphicons/
 ?>
 
 
@@ -15,7 +15,7 @@ require_once("../includes/dumbpress.php");
 	
 ?>
 <fieldset>
-<legend>Site Options</legend>
+<legend><i class="glyphicon glyphicon-cog"></i>Site Options</legend>
 <form method="post" action="?action=options">
 	<label for="sitetitle">Site Title </label>
 	<input type="text" name="sitetitle" value="<?php echo getOption("sitetitle"); ?>">
@@ -45,10 +45,10 @@ require_once("../includes/dumbpress.php");
 	
 ?>
 <fieldset>
-<legend>Google Analytics</legend>
+<legend><i class="glyphicon glyphicon-signal"></i>Google Analytics</legend>
 <form method="post" action="?action=options">
 	<label for="ganalyticsID">Google Analytics ID </label>
-	<input type="text" name="ganalyticsID" value="<?php echo getOption("ganalyticsID"); ?>">
+	<input type="text" name="ganalyticsID" value="<?php echo getOption("ganalyticsID"); ?>"><br>
 	<input type="submit" value="Save">
 </form>
 </fieldset>
@@ -67,7 +67,7 @@ require_once("../includes/dumbpress.php");
 	}
 ?>
 <fieldset>
-<legend>Social Accounts</legend>
+<legend><i class="glyphicon glyphicon-share"></i>Social Accounts</legend>
 <form method="post" action="?action=options">
 	<label for="twitterAccount">Twitter username </label>
 	<input type="text" name="twitterAccount" value="<?php echo getOption("twitterAccount"); ?>"><br>
@@ -90,7 +90,7 @@ require_once("../includes/dumbpress.php");
 	
 ?>
 <fieldset>
-<legend>CKFinder</legend>
+<legend><i class="glyphicon glyphicon-shopping-cart"></i>CKFinder</legend>
 <form method="post" action="?action=options">
 	<label for="ckfinderlicensename">License Name</label>
 	<input type="text" name="ckfinderlicensename" value="<?php echo getOption("ckfinderlicensename"); ?>">

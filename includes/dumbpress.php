@@ -15,80 +15,6 @@ $dpVersion = "0.0.1 Beta";
 /********************/
 
 
-/*********** ARTICLES FUNCTIONS *********/
-
-/*
-* DumbPress getArticle
-*/
-
-function dpGetArticle($articleID) {
-	
-	$query  = "SELECT * FROM articles where id=$articleID";
-  	$result = mysql_query($query);
-
-  while($row = mysql_fetch_array($result, MYSQL_ASSOC))
-  {
-  ?>
-	<article>
-		<header>
-		<h1><?php echo $row['title']; ?></h1>
-		<h3><?php echo $row['excerpt']; ?></h3>
-		<p>
-		<div class="postGallery">
-		<?php if ($row['cover_image_1'] != "") { ?> <a class="group1" href="<?php echo $row['cover_image_1']; ?>"><img src="<?php echo $row['cover_image_1']; ?>" class="postGalleryImg"></a><?php } ?>
-		<?php if ($row['cover_image_2'] != "") { ?> <a class="group1" href="<?php echo $row['cover_image_2']; ?>"><img src="<?php echo $row['cover_image_2']; ?>" class="postGalleryImg"></a><?php } ?>
-		<?php if ($row['cover_image_3'] != "") { ?> <a class="group1" href="<?php echo $row['cover_image_3']; ?>"><img src="<?php echo $row['cover_image_3']; ?>" class="postGalleryImg"></a><?php } ?>
-		</div>
-		</p>		
-		</header>
-		<p>
-		<?php 
-		echo getOption("preArticle");
-		echo $row['content']; 
-		echo getOption("postArticle");
-		?>
-		</p>
-		<footer>Footer</footer>
-	</article>
-  <?php
-  } 
-}	
-
-function dpCreateArticle($title,$content,$pubdate,$excerpt,$gallery,$cover_image_1,$cover_image_2,$cover_image_3,$state,$tags) {
-	$query  = "insert into articles(gallery,title,content,pubdate,excerpt,cover_image_1,cover_image_2,cover_image_3,state) values($gallery,'$title','$content','$pubdate','$excerpt','$cover_image_1','$cover_image_2','$cover_image_3',$state)";
-	//echo $query;
-	$result = mysql_query($query);
-	//Get inserted ID
-	$result = mysql_query("SELECT * FROM articles WHERE id = LAST_INSERT_ID();");
-	$row = mysql_fetch_array($result);
-	$lastinsertid = $row["id"];
-	//Remove old tags
-	mysql_query("delete from articles_tags where articleID=$lastinsertid");
-	// Saving TAGS
-    for ($i=0; $i<count($tags); $i++) {
-        mysql_query("insert into articles_tags (articleID,tagID) values (".$lastinsertid.",".$tags[$i].")");
-    }
-
-	return $result;
-}
-
-function dpDeleteArticle($articleID) {
-	mysql_query("delete from articles where id=$articleID");
-}
-
-function dpUpdateArticle($articleID,$title,$content,$pubdate,$excerpt,$gallery,$cover_image_1,$cover_image_2,$cover_image_3,$state,$tags) {
-	$query  = "update articles set gallery=$gallery,title='$title',content='$content',pubdate='$pubdate',excerpt='$excerpt',cover_image_1='$cover_image_1',cover_image_2='$cover_image_2',cover_image_3='$cover_image_3',state=$state where id=$articleID";
-	//echo $query;
-	$result = mysql_query($query);
-	//Remove old tags
-	mysql_query("delete from articles_tags where articleID=$articleID");
-	// Saving TAGS
-    for ($i=0; $i<count($tags); $i++) {
-        mysql_query("insert into articles_tags (articleID,tagID) values (".$articleID.",".$tags[$i].")");
-    }
-
-	return $result;
-}
 
 
 /*********** UI FUNCTIONS ***************/
@@ -151,7 +77,7 @@ function dpHeader() {
 	            <span class="icon-bar"></span>
 	            <span class="icon-bar"></span>
 	          </button>
-	         <a class="navbar-brand" href="#"><?php echo getOption("claim"); ?></a>
+	         <a class="navbar-brand" href=""><?php echo getOption("claim"); ?></a>
 	        </div>
 	        <div class="navbar-collapse collapse">
 	          <ul class="nav navbar-nav">
@@ -232,7 +158,7 @@ function dpBlogroll($page=0, $tagid=0) { ?>
     </header>
     <p><?php echo $row['excerpt']; ?></p>
     <footer>
-      <p>TAG1,TAG2,TAG3</p>
+      <p>Posted in: <?php echo getTags($row['id']); ?></p>
     </footer>
   </article>  
   <?php }
@@ -319,7 +245,7 @@ function dpFooter() {
 	<hr>
 	    <footer>
 	      <span style="float:left;">&copy; <?php echo getOption("sitetitle");?> 2013</span>
-	      <span style="float:right;">Powered by <a href="http://dumbpress.andreafortuna.org">DumbPress</a> - v. <?php echo $dpVersion; ?> - <a href="<?php echo getOption("sitelink");?>/dpadmin/">Admin</a></span>
+	      <span style="float:right;">Powered by <a href="http://dumbpress.andreafortuna.org">DumbPress</a> - v. <?php echo $dpVersion; ?> - <a href="<?php echo getOption("sitelink");?>/dpadmin/"><i class="glyphicon glyphicon-lock"></i></a></span>
 	    </footer>
 	</div> <!-- /container -->        
 

@@ -9,11 +9,11 @@ if (isset($_POST["theme"])) {
 }
 ?>
 
-<h2>Appereance</h2>
+<h2>Appearance</h2>
 <br/>
 
 <form method="post" action="?action=themes">
-<h3>Current theme: <strong><?php echo getTheme(); ?></strong></h3>
+<h3><i class="glyphicon glyphicon-eye-open"></i>Current theme: <strong><?php echo getTheme(); ?></strong></h3>
 <label for="theme">Select Theme</label>
 <select name="theme">
 <?php 
@@ -31,6 +31,7 @@ foreach($directories as $directory){
 } 
 ?>
 </select>
+<br>
 <input type="submit" value="Save"/>
 <br/>
 <br/>
@@ -48,7 +49,7 @@ foreach($directories as $directory){
 ?>
 
 <fieldset>
-<legend>Home page customizations</legend>
+<legend><i class="glyphicon glyphicon-home"></i>Home page customizations</legend>
 <form method="post" action="?action=themes">
 	<label for="galleryTitle">Gallery Title </label>
 	<input type="text" name="galleryTitle" value="<?php echo getOption("galleryTitle"); ?>"><br>
@@ -71,7 +72,7 @@ foreach($directories as $directory){
 ?>
 
 <fieldset>
-<legend>Article page customizations</legend>
+<legend><i class="glyphicon glyphicon-edit"></i>Article page customizations</legend>
 <form method="post" action="?action=themes">
 	<label for="preArticle">Pre-article HTML code </label>
 	<textarea name="preArticle" cols="60" rows="5"><?php echo getOption("preArticle"); ?></textarea><br/><br/>

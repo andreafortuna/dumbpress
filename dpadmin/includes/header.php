@@ -35,6 +35,6 @@ if (!checkUser() && basename($_SERVER["PHP_SELF"]) != "dp-login.php") {
     <body>
     <div class="container">
 
-<h1>DumbPress Administration</h1>
+<h1><i class="glyphicon glyphicon-cog"></i>DumbPress Administration</h1>
 <hr/>
 

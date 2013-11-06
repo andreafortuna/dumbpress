@@ -10,6 +10,14 @@ section {
 	height:100%;
 }
 
+
+
+
+i {
+	float:left;
+	margin-right:5px;
+}
+
 /*** FANCY TABLES ***/
 table
 {
