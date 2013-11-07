@@ -64,10 +64,6 @@ article footer a {
     top:0; 
 }
 
-
-
-
-
 /* Phone */
 @media  (min-device-width : 320px) and (max-device-width : 480px) {
     .postGalleryImg {
