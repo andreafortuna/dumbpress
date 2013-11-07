@@ -11,7 +11,7 @@ require_once("dp-functions.php");
 require_once("dbconn.php");
 
 /* Version tracking */
-$dpVersion = "0.0.1 Beta";
+$dpVersion = "0.0.2 Beta";
 /********************/
 
 
@@ -111,6 +111,7 @@ function dpHeader() {
  <?php 
 }
 
+
 /*
 * DumbPress BlogRoll
 */
@@ -176,6 +177,36 @@ function dpBlogroll($page=0, $tagid=0) { ?>
 
  <?php 
 }
+
+
+
+/*
+*	Search results
+*/
+
+function dpSearch($searchString) { ?>
+	<h1>Search results for "<?php echo $searchString; ?>"</h1> 
+	<?php
+		$query  = "SELECT * FROM articles where excerpt like '%$searchString%' or title like '%$searchString%'";
+		$result = mysql_query($query);
+		while($row = mysql_fetch_array($result, MYSQL_ASSOC))
+		{
+		?>
+		  <article>
+		    <header>
+		      <h1><a href="<?php echo createArticlePermalink($row['id'],$row['title']); ?>"><?php echo $row['title']; ?></a></h1>
+		      <time pubdate datetime="2011-10-09T14:28-08:00"><?php echo $row['pubdate']; ?></time></p>  
+		    </header>
+		    <p><?php echo $row['excerpt']; ?></p>
+		    <footer>
+		      <p>Posted in: <?php echo getTags($row['id']); ?></p>
+		    </footer>
+		  </article>  
+		<?php }
+	?>
+ <?php 
+}
+
 
 
 /*

@@ -10,3 +10,6 @@ RewriteRule ^arguments/([^"\r\n]*)/([^"\r\n]*)/ ?tagID=$1
 #SITEMAPS
 RewriteRule ^sitemap([0-9]+).xml$ dp-sitemap.php?p=$1
 RewriteRule ^sitemap.xml dp-sitemap.php?p=0
+
+#SEARCH
+RewriteRule ^search/([^"\r\n]*) ?searchKey=$1

@@ -9,7 +9,9 @@ if (!isset($_GET["articleID"]) && !isset($_GET["tagID"])) {
       <?php 
         if (isset($_GET["articleID"])) {
           dpGetArticle($_GET["articleID"]);
-        } else { 
+        } elseif (isset($_GET["searchKey"])) {
+          dpSearch($_GET["searchKey"]);
+        } else {
           dpBlogroll((isset($_GET["page"])?$_GET["page"]-1:""),(isset($_GET["tagID"])?$_GET["tagID"]:"")); 
         }
       ?>

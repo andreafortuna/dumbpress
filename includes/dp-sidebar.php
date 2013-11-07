@@ -1,4 +1,5 @@
 <?php 
+//error_reporting(E_ALL);
 require_once("dbconn.php");
 require_once("dumbpress.php");
 require_once("dp-functions.php");
@@ -38,7 +39,19 @@ function dpGetTagCloud() {
 }
 
 function dpGetSearchWidget() {
-	return "TODO:Search FORM";
+	$return = "<form onsubmit='return doSearch();'>
+				<input type='text' id='searchKey' name='searchKey'>
+				<input type='submit' value='Search'>
+				</form>
+<script>
+function doSearch() {
+
+	window.location.replace('".getOption("sitelink")."/search/'+$('#searchKey').val());
+	return false;
+}
+</script>
+				";
+	return $return;
 }
 
 function dpInstagramWidget() { 
@@ -49,12 +62,22 @@ function dpInstagramWidget() {
 	$return ="<a href='http://instagram.com/".getOption("instagramAccount")."/' target=_blank><div class='instagramWidget' >";
 
 	if (!isset($_SESSION["instagramWidget"])) {
-		$xmlObject = simplexml_load_file('http://followgram.me/'.getOption("instagramAccount").'/rss');
+
+		$url = 'http://followgram.me/'.getOption("instagramAccount").'/rss';
+		$curl = curl_init();
+		curl_setopt($curl, CURLOPT_URL, $url);
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($curl, CURLOPT_HEADER, false);
+		$data = curl_exec($curl);
+		curl_close($curl);
+
+		$content = utf8_encode($data);
+		$xmlObject = simplexml_load_string($content);
 		$_SESSION["instagramWidget"] = $xmlObject->asXML(); 
 		//echo "instagram cached";	
 	} 
 
-	$rss = new SimpleXMLElement($_SESSION["instagramWidget"]);//simplexml_load_file('http://followgram.me/andrea_fortuna/rss');
+	$rss = new SimpleXMLElement($_SESSION["instagramWidget"]);
 
 	$counter = 0;
 	foreach ($rss->channel->item as $item) {
@@ -76,5 +99,7 @@ function dpFacebookWidget() {
 function dpTwitterWidget() {
 	return "<a class=\"twitter-timeline\" href=\"https://twitter.com/".getOption("twitterAccount")."\" data-widget-id=\"305608819323576321\" data-screen-name=\"".getOption("twitterAccount")."\">Tweets di @".getOption("twitterAccount")."</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+\"://platform.twitter.com/widgets.js\";fjs.parentNode.insertBefore(js,fjs);}}(document,\"script\",\"twitter-wjs\");</script>";
 }
+
+
 
 ?>

@@ -1,9 +1,6 @@
 <div id="TagsTableContainer" style="width: 600px;"></div>
 	<script type="text/javascript">
-
 		$(document).ready(function () {
-
-		    //Prepare jTable
 			$('#TagsTableContainer').jtable({
 				title: 'Tags',
 				actions: {
@@ -37,10 +34,7 @@
 					}
 				}
 			});
-
-			//Load person list from server
 			$('#TagsTableContainer').jtable('load');
-
 		});
 
 	</script>
