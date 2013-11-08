@@ -26,6 +26,15 @@ $dpVersion = "0.0.2 Beta";
 */
 
 function dpHeader() {
+	$pagetitle = getOption("sitetitle");
+	$pagedescription = getOption("headline");	
+	if (isset($_GET["articleID"])) {
+		$articleObject = dpGetArticleObject($_GET["articleID"]);
+		$pagedescription = $articleObject["excerpt"];
+		$pagetitle = $articleObject["title"]." - ".$pagetitle;
+		$imagefull = getOption("sitelink")."/".$articleObject['cover_image_1'];
+	}
+
 	?>
 	<!DOCTYPE html>
 	<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -35,8 +44,8 @@ function dpHeader() {
 	    <head>
 	        <meta charset="utf-8">
 	        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	        <title></title>
-	        <meta name="description" content="">
+	        <title><?php echo $pagetitle; ?></title>
+	        <meta name="description" content="<?php echo $pagedescription; ?>">
 	        <meta name="viewport" content="width=device-width">
 			<link rel="alternate" type="application/rss+xml" title="RSS" href="<?php echo getOption("sitelink"); ?>/feed/" />
 	        <link rel="stylesheet" href="<?php echo getOption("sitelink"); ?>/css/bootstrap.min.css">
@@ -51,15 +60,38 @@ function dpHeader() {
 			<link rel="stylesheet" href="<?php echo getOption("sitelink"); ?>/css/main.css">
 	        <link rel="stylesheet" href="<?php echo getOption("sitelink"); ?>/themes/<?php echo getTheme() ?>/main.css">
 
+			<!-- Facebook properties -->
+			<meta property="og:site_name" content="<?php echo getOption("sitetitle"); ?>"/>
+			<meta property="og:locale" content="it_IT" />
+			<meta property="fb:admins" content="<?php echo getOption("facebookAdminID"); ?>" />
+			<meta property="fb:app_id" content="<?php echo getOption("facebookAppID"); ?>"/>
+			<meta property="og:title" content="<?php echo $pagetitle; ?>"/>
+			<meta property="og:description" content="<?php echo $pagedescription; ?>" />
+			<?php if (isset($_GET["articleID"])) { ?>				
+				<meta property="og:image" content="<?php echo $imagefull; ?>"/>				
+				
+			<?php } else {?>
+				<meta property="og:type" content="website"/> 
+			<?php } ?>
 	        <script src="<?php echo getOption("sitelink"); ?>/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 
-		
+
 
 	    </head>
 	    <body>
 	        <!--[if lt IE 7]>
 	            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
 	        <![endif]-->
+
+		<div id="fb-root"></div>
+		<script>(function(d, s, id) {
+		  var js, fjs = d.getElementsByTagName(s)[0];
+		  if (d.getElementById(id)) return;
+		  js = d.createElement(s); js.id = id;
+		  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=<?php echo getOption("facebookAppID"); ?>";
+		  fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));</script>
+
 	    <div class="navbar navbar-inverse navbar-fixed-top">
 	      <div class="container">
 	        <div class="navbar-header">
@@ -271,7 +303,36 @@ function dpFooter() {
 	    </footer>
 	</div> <!-- /container -->        
 
-	    
+	<?php if (getOption("enableAddThisBox") == "on") {?>
+	    <!-- AddThis Smart Layers BEGIN -->
+		<!-- Go to http://www.addthis.com/get/smart-layers to customize -->
+		<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-527d2d5f6c864b69"></script>
+		<script type="text/javascript">
+		  addthis.layers({
+		    'theme' : 'transparent',
+		    'share' : {
+		      'position' : 'right',
+		      'numPreferredServices' : 6
+		    }   
+		  });
+		</script>
+		<!-- AddThis Smart Layers END -->
+		<?php } ?> 
+
+
+		<?php if (getOption("enablePinterest") == "on") {?>
+		<script type="text/javascript">
+		(function(d){
+		  var f = d.getElementsByTagName('SCRIPT')[0], p = d.createElement('SCRIPT');
+		  p.type = 'text/javascript';
+		  p.setAttribute('data-pin-hover', true);
+		  p.async = true;
+		  p.src = '//assets.pinterest.com/js/pinit.js';
+		  f.parentNode.insertBefore(p, f);
+		}(document));
+		</script>
+		<?php } ?> 
+
 
 	    <script>window.jQuery || document.write('<script src="<?php echo getOption("sitelink"); ?>/js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
 	<script src="<?php echo getOption("sitelink"); ?>/js/vendor/jquery.colorbox.js"></script>

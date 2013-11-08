@@ -48,6 +48,14 @@ function getTheme(){
 * DumbPress getArticle
 */
 
+function dpGetArticleObject ($articleID) {
+  $query  = "SELECT * FROM `articles` WHERE id=$articleID";
+  $result = mysql_query($query);
+  $row = mysql_fetch_array($result, MYSQL_ASSOC);
+  
+  return $row;
+}
+
 function dpGetArticle($articleID) {
   
   $query  = "SELECT * FROM articles where id=$articleID";
@@ -77,6 +85,10 @@ function dpGetArticle($articleID) {
     </p>
     <footer>Posted <?php echo $row['pubdate']; ?>&nbsp; in <?php echo getTags($row['id']); ?></footer>
   </article>
+  <?php  if (getOption("enableFBComments") == "on") {?>
+  <br/>
+  <div class="fb-comments" data-href="<?php echo createArticlePermalink($row['id'],$row['title']); ?>" data-numposts="10" data-width="600"></div>
+  <?php } ?>
   <?php
   } 
 } 
