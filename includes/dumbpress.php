@@ -26,15 +26,6 @@ $dpVersion = "0.0.2 Beta";
 */
 
 function dpHeader() {
-	global $enableDebug; 
-	//DEBUG**/
-	if ($enableDebug=="1") {
-		$res = mysql_query("SHOW SESSION STATUS LIKE 'Questions'");
-		$row = mysql_fetch_array($res, MYSQL_ASSOC);
-		define("START_QUERIES",$row['Value']);
-		define("START_TIME",microtime(true));
-	}
-	/*******/
 	?>
 	<!DOCTYPE html>
 	<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -297,9 +288,33 @@ function dpFooter() {
 	    </body>
 	</html>
 
-	<?php 
+	
+<?php }
+
+/*
+* DEBUG
+*/
+
+
+function dpDebugStart() {
+	global $enableDebug; 
+	//DEBUG**/
+	if ($enableDebug=="1") {
+		$res = mysql_query("SHOW SESSION STATUS LIKE 'Questions'");
+		$row = mysql_fetch_array($res, MYSQL_ASSOC);
+		define("START_QUERIES",$row['Value']);
+		define("START_TIME",microtime(true));
+	}
+	/*******/
+}
+
+function dpDebugStop() {
+	global $enableDebug;
+
 	/*** DEBUG ****/
 	if ($enableDebug=="1") {
+		error_reporting(E_ALL);
+		ini_set("display_errors", 1);
 		$res = mysql_query("SHOW SESSION STATUS LIKE 'Questions'");
 		$row = mysql_fetch_array($res, MYSQL_ASSOC);
 		define("STOP_QUERIES",$row['Value']);

@@ -29,7 +29,6 @@ require_once("../includes/dumbpress.php");
 } ?>
 
 <?php if (isset($_GET["save"])) { 
-	
 	$gallery = (isset($_POST['gallery']) && $_POST['gallery'] == "on" ? "1" : "0"); 
   	$title = $_POST['title']; 
   	$content = $_POST['content']; 

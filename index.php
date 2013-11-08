@@ -1,5 +1,25 @@
 <?php 
 require("includes/dumbpress.php"); 
+dpDebugStart();
+
+//Page Caching
+$rawurl = $_SERVER['QUERY_STRING'];
+if ($rawurl == "") $rawurl="home";
+//$rawurl = base64_encode($rawurl); 
+$cachefile = "caches/$rawurl.html";
+$cachetime = 5 * 60;
+//$cachetime = 0;
+
+if (file_exists($cachefile) && time() - $cachetime < filemtime($cachefile)) {
+    include($cachefile);
+    dpDebugStop();
+    echo "<!-- Cached copy, generated ".date('H:i', filemtime($cachefile))." -->\n";
+    exit;
+}
+ob_start();
+
+
+
 dpHeader(); 
 if (!isset($_GET["articleID"]) && !isset($_GET["tagID"])) {
     dpGallery(); 
@@ -21,3 +41,14 @@ if (!isset($_GET["articleID"]) && !isset($_GET["tagID"])) {
   </div>
 </div>
 <?php dpFooter(); ?>
+
+<?php
+
+// Cache the output to a file
+$fp = fopen($cachefile, 'w');
+fwrite($fp, ob_get_contents());
+fclose($fp);
+ob_end_flush();
+
+dpDebugStop();
+?>

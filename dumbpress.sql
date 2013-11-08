@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS `articles` (
   `cover_image_2` varchar(500) DEFAULT NULL,
   `cover_image_3` varchar(500) DEFAULT NULL,
   `pubdate` date NOT NULL,
-  `gallery` bit(1) NOT NULL,
+  `gallery` int(1) NOT NULL,
   `state` int(11) NOT NULL COMMENT '0:draft, 1:online, 2:trashed',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
