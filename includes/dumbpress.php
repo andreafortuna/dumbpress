@@ -11,7 +11,7 @@ require_once("dp-functions.php");
 require_once("dbconn.php");
 
 /* Version tracking */
-$dpVersion = "0.0.2 Beta";
+$dpVersion = "0.0.3 Beta";
 /********************/
 
 

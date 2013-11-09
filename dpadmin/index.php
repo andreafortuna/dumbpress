@@ -8,7 +8,11 @@
   <div class="col-lg-10">
 <?php
 
-if (isset($_GET["action"])) require("includes/".$_GET["action"].".php");
+	if (isset($_GET["action"])) {
+		require("includes/".$_GET["action"].".php");	
+	} else {
+		include("includes/home.php");
+	}
 ?>
   </div>
 

@@ -14,7 +14,7 @@ if (!checkUser() && basename($_SERVER["PHP_SELF"]) != "dp-login.php") {
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title></title>
+        <title><?php echo getOption("sitetitle"); ?> - Administration</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
@@ -35,6 +35,6 @@ if (!checkUser() && basename($_SERVER["PHP_SELF"]) != "dp-login.php") {
     <body>
     <div class="container">
 
-<h1><i class="glyphicon glyphicon-cog"></i>DumbPress Administration</h1>
+<h1><a href="./"><i class="glyphicon glyphicon-cog"></i></a>DumbPress Administration</h1>
 <hr/>
 
