@@ -85,4 +85,41 @@ foreach($directories as $directory){
 
 
 
+
+<?php
+	if (isset($_POST["courtesyPage"])) {
+		setOption("enableCourtesyPage", @$_POST["enableCourtesyPage"]);	
+		file_put_contents("courtesy.txt", $_POST["courtesyPage"]);
+		echo "<h4>Saved!</h4>";
+		if (@$_POST["enableCourtesyPage"] == "on") {
+		//create index.html
+		file_put_contents("../index.html", $_POST["courtesyPage"]);
+		} else {
+			//delete index.html
+			@unlink("../index.html");
+		}
+	}
+
+	
+	
+?>
+
+
+
+<fieldset>
+<legend><i class="glyphicon glyphicon-exclamation-sign"></i>Courtesy Page</legend>
+<form method="post" action="?action=themes">
+	<label for="enableCourtesyPage">Enable Courtesy Page </label>
+	<input type="checkbox" name="enableCourtesyPage" <?php  echo (getOption("enableCourtesyPage") == "on" ?  "checked" :  "");?> >
+	<br/>
+
+	<label for="courtesyPage">HTML code</label>
+	<textarea name="courtesyPage" cols="90" rows="20"><?php echo @file_get_contents("courtesy.txt"); ?></textarea><br/><br/>
+	<input type="submit" value="Save">
+</form>
+</fieldset>
+<br/>
+
+
+
 </form>

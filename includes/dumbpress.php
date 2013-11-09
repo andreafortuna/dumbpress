@@ -47,6 +47,7 @@ function dpHeader() {
 	        <title><?php echo $pagetitle; ?></title>
 	        <meta name="description" content="<?php echo $pagedescription; ?>">
 	        <meta name="viewport" content="width=device-width">
+	        <link rel="shortcut icon" href="<?php echo getOption("sitelink"); ?>/themes/<?php echo getTheme() ?>/favicon.ico">
 			<link rel="alternate" type="application/rss+xml" title="RSS" href="<?php echo getOption("sitelink"); ?>/feed/" />
 	        <link rel="stylesheet" href="<?php echo getOption("sitelink"); ?>/css/bootstrap.min.css">
 	        <style>
