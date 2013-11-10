@@ -278,7 +278,7 @@ function dpGallery() { ?>
 
 		<div class="col-lg-4">
 	  		<h2><a href="<?php echo createArticlePermalink($row['id'],$row['title']); ?>"><?php echo $row['title']; ?></a></h2>
-	  		<p><img src="<?php echo $row['cover_image_1']; ?>" class="imgsx"><?php echo $row['excerpt']; ?></p>          
+	  		<p><img src="thumb.php?src=<?php echo $row['cover_image_1']; ?>&w=150&h=120" class="imgsx"><?php echo $row['excerpt']; ?></p>          
 		</div>
 
 	  
@@ -300,7 +300,7 @@ function dpFooter() {
 	<hr>
 	    <footer>
 	      <span style="float:left;">&copy; <?php echo getOption("sitetitle");?> 2013</span>
-	      <span style="float:right;">Powered by <a href="http://dumbpress.andreafortuna.org">DumbPress</a> - v. <?php echo $dpVersion; ?> - <a href="<?php echo getOption("sitelink");?>/dpadmin/"><i class="glyphicon glyphicon-lock"></i></a></span>
+	      <span style="float:right;">Powered by <a href="http://andreafortuna.github.io/dumbpress/" target="_blank">DumbPress</a> - v. <?php echo $dpVersion; ?> - <a href="<?php echo getOption("sitelink");?>/dpadmin/"><i class="glyphicon glyphicon-lock"></i></a></span>
 	    </footer>
 	</div> <!-- /container -->        
 

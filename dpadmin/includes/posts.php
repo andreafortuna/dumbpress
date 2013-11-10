@@ -1,6 +1,50 @@
+<script>
+
+var popupBlockerChecker = {
+        check: function(popup_window,id){
+            var _scope = this;
+            if (popup_window) {
+                if(/chrome/.test(navigator.userAgent.toLowerCase())){
+                    setTimeout(function () {
+                        _scope._is_popup_blocked(_scope, popup_window,id);
+                     },200);
+                }else{
+                    popup_window.onload = function () {
+                        _scope._is_popup_blocked(_scope, popup_window,id);
+                    };
+                }
+            }else{
+                _scope._displayError();
+            }
+        },
+        _is_popup_blocked: function(scope, popup_window,id){
+            if ((popup_window.innerHeight > 0)==false){ 
+            	scope._displayError(); 
+            } else {
+            	window.location.href="?action=posts&edit=" + id;
+            }
+        },
+        _displayError: function(){
+            alert("Popup Blocker is enabled! Please add this site to your exception list.");
+        }
+    };
+
+
+
+
+	function preview(id) {
+		var pop = window.open("../index.php?articleID="+id,null,"height=700,width=1000,status=yes,toolbar=no,menubar=no,location=no");	
+		popupBlockerChecker.check(pop,id);
+
+	}
+</script>
+
 <?php 
 
-require_once("../includes/dumbpress.php"); 
+require_once("../includes/dumbpress.php");
+
+
+
 ?>
 
 <?php if (isset($_GET["delete"])) { 
@@ -9,7 +53,7 @@ require_once("../includes/dumbpress.php");
 ?>
 
 
-<?php if (isset($_GET["editid"])) { 
+<?php if (isset($_GET["editid"]) || isset($_GET["preview"])) { 
 	$editid = $_GET["editid"];
 
 	$gallery = (isset($_POST['gallery']) && $_POST['gallery'] == "on" ? "1" : "0"); 
@@ -24,28 +68,46 @@ require_once("../includes/dumbpress.php");
 	$tags =$_POST["tag_group"];
 
 	dpUpdateArticle($editid,$title,$content,$pubdate,$excerpt,$gallery,$cover_image_1,$cover_image_2,$cover_image_3,$state,$tags);
-
+	if (isset($_POST["preview"])) {
+		echo "<script>preview($editid)</script>";
+		
+	}
 
 } ?>
 
-<?php if (isset($_GET["save"])) { 
+<?php 
+
+
+if (isset($_GET["save"])) { 
 	$gallery = (isset($_POST['gallery']) && $_POST['gallery'] == "on" ? "1" : "0"); 
   	$title = $_POST['title']; 
   	$content = $_POST['content']; 
   	$pubdate = $_POST['pubdate']; 
   	$excerpt = $_POST['excerpt']; 
   	$state = $_POST['state']; 
+  	if (isset($_POST["preview"])) $state=0;
   	$cover_image_1 = $_POST['cover_image_1']; 
   	$cover_image_2 = $_POST['cover_image_2']; 
   	$cover_image_3 = $_POST['cover_image_3']; 
 	$tags =$_POST["tag_group"];
 
-	dpCreateArticle($title,$content,$pubdate,$excerpt,$gallery,$cover_image_1,$cover_image_2,$cover_image_3,$state,$tags);
+	$insertedid = dpCreateArticle($title,$content,$pubdate,$excerpt,$gallery,$cover_image_1,$cover_image_2,$cover_image_3,$state,$tags);
 	
+	if (isset($_POST["preview"])) {
+		echo "<script>preview($insertedid)</script>";
+		
+	}
+
 } ?>
 
 
-<?php if (isset($_GET["edit"])) { ?>
+
+
+<?php 
+/******************************
+****** ARTICLE EDITING ********
+*******************************/
+if (isset($_GET["edit"])) { ?>
 	<h1>Article editing</h1>
 		<?php
 		  $editid = $_GET["edit"];
@@ -161,6 +223,7 @@ require_once("../includes/dumbpress.php");
 
 	<br/>
 	<input type="submit" value="Save">
+	<input type="submit" value="Preview" name="preview">
 	</form>
 
 	<script>
@@ -169,7 +232,13 @@ require_once("../includes/dumbpress.php");
 	</script>
 
 
-<?php } elseif (isset($_GET["new"])) { ?>
+<?php } elseif (isset($_GET["new"])) { 
+
+/******************************
+****** ARTICLE CREATION *******
+*******************************/
+
+	?>
 
 	<h1>New article</h1>
 
@@ -256,6 +325,7 @@ require_once("../includes/dumbpress.php");
 	</div>
 	<br/>
 	<input type="submit" value="Save">
+	<input type="submit" value="Preview" name="preview">
 	</form>
 
 	<script>

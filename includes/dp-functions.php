@@ -70,9 +70,9 @@ function dpGetArticle($articleID) {
     <h3><?php echo $row['excerpt']; ?></h3>
     <p>
     <div class="postGallery">
-    <?php if ($row['cover_image_1'] != "") { ?> <a class="group1" href="<?php echo $row['cover_image_1']; ?>"><img src="<?php echo $row['cover_image_1']; ?>" class="postGalleryImg"></a><?php } ?>
-    <?php if ($row['cover_image_2'] != "") { ?> <a class="group1" href="<?php echo $row['cover_image_2']; ?>"><img src="<?php echo $row['cover_image_2']; ?>" class="postGalleryImg"></a><?php } ?>
-    <?php if ($row['cover_image_3'] != "") { ?> <a class="group1" href="<?php echo $row['cover_image_3']; ?>"><img src="<?php echo $row['cover_image_3']; ?>" class="postGalleryImg"></a><?php } ?>
+    <?php if ($row['cover_image_1'] != "") { ?> <a class="group1" href="<?php echo $row['cover_image_1']; ?>"><img src="<?php echo getOption("sitelink"); ?>/thumb.php?src=<?php echo $row['cover_image_1']; ?>&w=220&h=200" class="postGalleryImg"></a><?php } ?>
+    <?php if ($row['cover_image_2'] != "") { ?> <a class="group1" href="<?php echo $row['cover_image_2']; ?>"><img src="<?php echo getOption("sitelink"); ?>/thumb.php?src=<?php echo $row['cover_image_2']; ?>&w=220&h=200" class="postGalleryImg"></a><?php } ?>
+    <?php if ($row['cover_image_3'] != "") { ?> <a class="group1" href="<?php echo $row['cover_image_3']; ?>"><img src="<?php echo getOption("sitelink"); ?>/thumb.php?src=<?php echo $row['cover_image_3']; ?>&w=220&h=200" class="postGalleryImg"></a><?php } ?>
     </div>
     </p>    
     </header>
@@ -108,7 +108,7 @@ function dpCreateArticle($title,$content,$pubdate,$excerpt,$gallery,$cover_image
         mysql_query("insert into articles_tags (articleID,tagID) values (".$lastinsertid.",".$tags[$i].")");
     }
 
-  return $result;
+  return $lastinsertid;
 }
 
 function dpDeleteArticle($articleID) {

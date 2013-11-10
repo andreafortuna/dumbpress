@@ -1,6 +1,6 @@
 <hr>
     <footer>
-      <p>Powered by <a href="http://dumbpress.andreafortuna.org">DumbPress</a> - v. <?php echo $dpVersion; ?></p>
+      <p>Powered by <a href="http://andreafortuna.github.io/dumbpress/" target="_blank">DumbPress</a> - v. <?php echo $dpVersion; ?></p>
     </footer>
 </div> <!-- /container -->        
 
