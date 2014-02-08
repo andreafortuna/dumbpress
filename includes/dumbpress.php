@@ -11,7 +11,7 @@ require_once("dp-functions.php");
 require_once("dbconn.php");
 
 /* Version tracking */
-$dpVersion = "0.0.3 Beta";
+$dpVersion = "0.0.4 Beta";
 /********************/
 
 
@@ -61,7 +61,7 @@ function dpHeader() {
 			<link rel="stylesheet" href="<?php echo getOption("sitelink"); ?>/css/main.css">
 	        <link rel="stylesheet" href="<?php echo getOption("sitelink"); ?>/themes/<?php echo getTheme() ?>/main.css">
 
-			<!-- Facebook properties -->
+			<!-- Facebook opengraph properties -->
 			<meta property="og:site_name" content="<?php echo getOption("sitetitle"); ?>"/>
 			<meta property="og:locale" content="it_IT" />
 			<meta property="fb:admins" content="<?php echo getOption("facebookAdminID"); ?>" />
@@ -169,7 +169,6 @@ function dpBlogroll($page=0, $tagid=0) { ?>
 	if ($tagid==0) $query .=" and gallery=0 ";
 	$query .=" order by pubdate desc limit ".($page * $pagesize).",".$pagesize;
  
-	//echo $query;
 
   	$result = mysql_query($query);
 
@@ -278,7 +277,7 @@ function dpGallery() { ?>
 
 		<div class="col-lg-4">
 	  		<h2><a href="<?php echo createArticlePermalink($row['id'],$row['title']); ?>"><?php echo $row['title']; ?></a></h2>
-	  		<p><img src="thumb.php?src=<?php echo $row['cover_image_1']; ?>&w=150&h=120" class="imgsx"><?php echo $row['excerpt']; ?></p>          
+	  		<p><img src="<?php echo getOption("sitelink"); ?>/thumb.php?src=<?php echo $row['cover_image_1']; ?>&w=150&h=120" class="imgsx"><?php echo $row['excerpt']; ?></p>          
 		</div>
 
 	  
@@ -306,7 +305,6 @@ function dpFooter() {
 
 	<?php if (getOption("enableAddThisBox") == "on") {?>
 	    <!-- AddThis Smart Layers BEGIN -->
-		<!-- Go to http://www.addthis.com/get/smart-layers to customize -->
 		<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-527d2d5f6c864b69"></script>
 		<script type="text/javascript">
 		  addthis.layers({
