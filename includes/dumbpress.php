@@ -11,7 +11,7 @@ require_once("dp-functions.php");
 require_once("dbconn.php");
 
 /* Version tracking */
-$dpVersion = "0.0.4 Beta";
+$dpVersion = "0.0.5 Beta";
 /********************/
 
 
@@ -261,31 +261,34 @@ function dpSidebar() {
 * DumbPress Gallery
 */
 
-function dpGallery() { ?>
-	 
-	<h1><?php echo getOption("galleryTitle");?></h1>
-      <hr>
-      <div class="row">
-	
-    <?php
+function dpGallery() { 
+
 	$query  = "SELECT * FROM articles where pubdate < now() and state=1 and gallery=1 order by pubdate desc limit 3";
-	  $result = mysql_query($query);
+	$result = mysql_query($query);
+	if (mysql_num_rows($result) >0) { ?>
+		 
+		<h1><?php echo getOption("galleryTitle");?></h1>
+	      <hr>
+	      <div class="row">
+		
+	    <?php
 
-	  while($row = mysql_fetch_array($result, MYSQL_ASSOC))
-	  {
-	  ?>
+		  while($row = mysql_fetch_array($result, MYSQL_ASSOC))
+		  {
+		  ?>
 
-		<div class="col-lg-4">
-	  		<h2><a href="<?php echo createArticlePermalink($row['id'],$row['title']); ?>"><?php echo $row['title']; ?></a></h2>
-	  		<p><img src="<?php echo getOption("sitelink"); ?>/thumb.php?src=<?php echo $row['cover_image_1']; ?>&w=150&h=120" class="imgsx"><?php echo $row['excerpt']; ?></p>          
-		</div>
+			<div class="col-lg-4">
+		  		<h2><a href="<?php echo createArticlePermalink($row['id'],$row['title']); ?>"><?php echo $row['title']; ?></a></h2>
+		  		<p><img src="<?php echo getOption("sitelink"); ?>/thumb.php?src=<?php echo $row['cover_image_1']; ?>&w=150&h=120" class="imgsx"><?php echo $row['excerpt']; ?></p>          
+			</div>
 
-	  
-	  <?php
-	  } ?>
-	  </div>
-	  <br/>
- <?php
+		  
+		  <?php
+		  } ?>
+		  </div>
+		  <br/>
+	 <?php
+	}
 }
 
 /*
